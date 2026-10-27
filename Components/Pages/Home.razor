@@ -1,0 +1,161 @@
+﻿@page "/"
+@using Portfolio.Models
+@using Portfolio.Services
+@inject ProjectService ProjectSvc
+
+<PageTitle>Imran Hairol | Junior Software Engineer</PageTitle>
+
+<div class="splash"><p>Welcome to my<br />Portfolio Website</p></div>
+
+<nav class="nav">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#portfolio">Portfolio</a><a href="#contact">Contact</a>
+</nav>
+
+<header class="hero" id="home">
+    <div>
+        <p class="kicker">// hello, world</p>
+        <h1>Muhammad Imran <span>Hairol</span></h1>
+        <p class="typing" data-type="Junior Software Engineer|Web Developer|Fresh Computer Science Graduate"></p>
+        <p>Computer Science (Web Technology) graduate with experience in software development, database management
+            and application troubleshooting.</p>
+        <div class="buttons">
+            <a class="btn primary" href="#portfolio">View my projects</a>
+            <a class="btn" href="resume.pdf">Download resume</a>
+            <a class="btn" href="#contact">Contact me</a>
+        </div>
+    </div>
+    <div class="badge-wrap">
+        <div class="badge">
+            <div class="photo">MI</div>
+            <b>Muhammad Imran Hairol</b>
+            <small>Web Developer</small>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section id="about" class="reveal">
+        <div class="about-grid">
+            <div>
+                <h2>About me</h2>
+                <p>I studied Computer Science, specializing in Web Technology, and built web applications with PHP,
+                    HTML, JavaScript and MySQL. During my internship I worked with Oracle technologies in a core
+                    banking environment.</p>
+                <p>Now I am improving my C# and ASP.NET Core skills to become a professional software engineer.</p>
+            </div>
+            <div class="card">
+                <h3>Quick facts</h3>
+                <p class="meta">Degree</p><p>Computer Science (Web Technology)</p>
+                <p class="meta">Internship</p><p>Infopro Sdn. Bhd., banking software</p>
+                <p class="meta">Currently learning</p><p>C#, ASP.NET Core, Blazor</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="reveal">
+        <h2>Portfolio showcase</h2>
+        <p class="sub">My projects, experience and technical skills.</p>
+        <div class="tabs">
+            <button class="active" data-tab="projects">Projects</button>
+            <button data-tab="experience">Experience</button>
+            <button data-tab="stack">Tech stack</button>
+        </div>
+
+        <div class="panel active" data-panel="projects">
+            @if (projects is null)
+            {
+                <p>Loading projects...</p>
+            }
+            else
+            {
+                <div class="cards">
+                    @foreach (var p in projects)
+                    {
+                        <article class="card">
+                            <p class="meta">@p.Type</p>
+                            <h3>@p.Title</h3>
+                            <p>@p.Description</p>
+                            <p class="tags">@string.Join(", ", p.Tech)</p>
+                            @if (!string.IsNullOrEmpty(p.Link))
+                            {
+                                <a href="@p.Link" target="_blank" rel="noopener">View on GitHub</a>
+                            }
+                        </article>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="panel" data-panel="experience">
+            <div class="cards">
+                <article class="card">
+                    <p class="meta">Internship</p>
+                    <h3>Software Development Intern, Infopro Sdn. Bhd.</h3>
+                    <ul class="list">
+                        <li>Maintained and improved core banking applications.</li>
+                        <li>Fixed errors using Oracle Forms and PL/SQL.</li>
+                        <li>Tested systems and modified Oracle Forms and Reports.</li>
+                        <li>Resolved user-reported issues and wrote technical documentation.</li>
+                        <li>Supported technical refresh by recompiling and testing applications.</li>
+                    </ul>
+                    <p class="tags">Oracle Forms, Oracle Reports, Oracle SQL, PL/SQL, TOAD</p>
+                </article>
+                <article class="card">
+                    <p class="meta">Final year project</p>
+                    <h3>Car Service Record Management System</h3>
+                    <p>A central web application for workshops and customers to manage vehicle service information,
+                        replacing manual records.</p>
+                    <ul class="list">
+                        <li>Login with different user roles</li>
+                        <li>Service booking and vehicle records</li>
+                        <li>Maintenance history and mechanic dashboard</li>
+                        <li>Admin dashboard to monitor service activity</li>
+                    </ul>
+                    <p class="tags">PHP, HTML, CSS, JavaScript, MySQL, XAMPP</p>
+                </article>
+            </div>
+        </div>
+
+        <div class="panel" data-panel="stack">
+            @foreach (var s in skills)
+            {
+                <div class="group">
+                    <h3>@s.Key</h3>
+                    <div class="chips">
+                        @foreach (var item in s.Value.Split(", "))
+                        {
+                            <span class="chip">@item</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section id="contact" class="reveal contact">
+        <h2>Let's connect</h2>
+        <p class="sub">I am interested in software engineering, web development and backend development roles.</p>
+        <p>Email: <a href="mailto:imranhrizal@gmail.com">imranhrizal@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-imran-0160943a5" target="_blank" rel="noopener">linkedin.com/in/muhammad-imran-0160943a5</a></p>
+        <p>GitHub: <a href="https://github.com/ImranHairol1">ImranHairol1</a></p>
+    </section>
+</main>
+
+@code {
+    private List<Project>? projects;
+
+    private readonly Dictionary<string, string> skills = new()
+    {
+        ["Languages"] = "C#, PHP, JavaScript, Java, C",
+        ["Frontend"] = "HTML, CSS, JavaScript",
+        ["Backend"] = "C#, PHP, ASP.NET Core (learning)",
+        ["Databases"] = "MySQL, Oracle SQL, PL/SQL",
+        ["Tools"] = "Visual Studio, VS Code, XAMPP, Oracle Forms, Oracle Reports",
+        ["Other"] = "Debugging, System testing, Troubleshooting"
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await ProjectSvc.GetAllAsync();
+    }
+}

@@ -1,0 +1,23 @@
+[
+  {
+  "title": "Inventory Management Application",
+  "description": "A full-stack inventory app with user login, product management and an audit log of changes.",
+  "type": "Personal project",
+  "tech": ["Java", "Spring Boot", "JWT", "MySQL", "React", "Vite"],
+  "link": "https://github.com/ImranHairol1/inventory-app"
+  },
+  {
+    "title": "Car Service Record Management System",
+    "description": "A web app for workshops to manage vehicle maintenance records, customer bookings and service information.",
+    "type": "Final Year Project",
+    "tech": ["PHP", "HTML", "CSS", "JavaScript", "MySQL"],
+    "link": null
+  },
+  {
+    "title": "Personal Developer Portfolio",
+    "description": "This website: built with C# and Blazor, with project cards loaded asynchronously from a JSON file.",
+    "type": "Personal project (in development)",
+    "tech": ["C#", "ASP.NET Core Blazor", "HTML", "CSS", "JSON"],
+    "link": "https://github.com/ImranHairol1"
+  }
+]
