@@ -18,6 +18,6 @@
     "description": "This website: built with C# and Blazor, with project cards loaded asynchronously from a JSON file.",
     "type": "Personal project (in development)",
     "tech": ["C#", "ASP.NET Core Blazor", "HTML", "CSS", "JSON"],
-    "link": "https://github.com/ImranHairol1"
+    "link": "https://github.com/ImranHairol1/Portfolio"
   }
 ]
